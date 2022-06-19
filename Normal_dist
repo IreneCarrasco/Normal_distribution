@@ -1,0 +1,26 @@
+# import libraries and modules
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Random numbers generation according to a normal distribution
+# The first argument represents the mean of our array. The second one is the standard deviation of the distribution, and the third outputs how many random numbers we want
+# to generate in the array
+mu, sigma= 5.0, 1.0
+x=np.random.normal(mu, sigma, 12000) # We can also set the parameters in the parentheses x=np.random.normal(3.5, 0.5, 1000)
+
+# We could also verify the mean and the variance of the distribution
+s=abs(mu - np.mean(x))
+t=abs(sigma - np.std(x, ddof=1)) #ddof optional argument
+# ddof means Delta Degrees of Freedom. The divisor used in calculations is N - ddof, where N represents the number of elements. By default ddof is zero.
+print(s, t)
+
+# plot a histogram with 80 bars
+plt.hist(x, 80)
+plt.show()
+
+# We can additionally plot the histogram and the probability density function
+count, bins, ignored = plt.hist(x, 30, density=True) # Histogram now in 30 bars
+plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) *
+               np.exp( - (bins - mu)**2 / (2 * sigma**2) ),
+         linewidth=2, color='r')
+plt.show()
